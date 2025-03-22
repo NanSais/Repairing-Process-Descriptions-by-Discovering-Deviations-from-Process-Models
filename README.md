@@ -5,8 +5,7 @@ The implementation of the paper 'Repairing Process Descriptions by Discovering D
 
 ## Data Format
 
-All experimental input files are located in the `Data` folder. Each example includes a set of textual descriptions and a corresponding BPMN 2.0 model.
-
+All experimental input files are located in the `Data` folder.
 ### Text Description Files (`.txt`)
 
 Each file follows the same Python-style format with the following variables:
