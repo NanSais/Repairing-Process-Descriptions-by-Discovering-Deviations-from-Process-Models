@@ -1,0 +1,20 @@
+text_description = """
+The process begins by checking if the car is registered. If the car is registered, the owner is notified. Then the customer comes to the service. If the customer chooses not to go to the service, they must enter the car's problems. If they decide to go, they wait. Following this, status updates are sent to the car owner via email. After these, the repair is done. Then, the payment is made through an app. The car is then granted a "Pickerl" (a vehicle inspection sticker), and the time for the next service is entered. However, if the car is not registered, the process is skipped. The entire service ends.
+"""
+
+gold_standard =[
+    ('check if car is registered', 'exclusive_gateway_1', [1,2,10]),
+    ('exclusive_gateway_1', 'car owner is notified', [2]),
+    ('exclusive_gateway_1', 'service ends', [10]),
+    ('car owner is notified', 'Customer comes to the Service', [3]),
+    ('Customer comes to the Service', 'exclusive_gateway_2', [4,5]),
+    ('exclusive_gateway_2', 'enter car problems', [4]),
+    ('enter car problems', 'service ends', [11]),
+    ('exclusive_gateway_2', 'waiting', [5]),
+    ('waiting', 'send status updates to car owner via e-mail', [6]),
+    ('send status updates to car owner via e-mail', 'repair done', [7]),
+    ('repair done', 'pay through the app', [8]),
+    ('pay through the app', 'grant "Pickerl"', [9]),
+    ('grant "Pickerl"', 'enter time for next service', [9]),
+    ('enter time for next service', 'service ends', [11])
+]

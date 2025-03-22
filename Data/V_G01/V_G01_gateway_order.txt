@@ -1,0 +1,23 @@
+text_description = """
+The robot receives an order. It then asks whether the customer wants a menu or just a burger. If he wants a burger only, that option is skipped, and the process continues. If he wants a menu, the Robot starts preparing food. If wedges are chosen, the robot prepares the drink. However, if fries are preferred, it asks about side dish. Following this, both fries and wedges are prepared at same time. After that, the Robot prepares the burger, and gives enthusiastic status updates every 30 seconds. Finally delivers the order using a conveyor belt.
+"""
+
+gold_standard =[
+    ('Robot receives order', 'Check whether the customer wants a menu or a burger', [1,2]),
+    ('Check whether the customer wants a menu or a burger', 'exclusive_gateway_1', [3,4]),
+    ('exclusive_gateway_1', 'Start preparing foods', [4]),
+    ('exclusive_gateway_1', 'prepare burger', [3]),
+    ('Start preparing foods', 'exclusive_gateway_2', [5,6]),
+    ('exclusive_gateway_2', 'prepare drink', [5]),
+    ('exclusive_gateway_2', 'Ask about side dish', [6]),
+    ('Ask about side dish', 'parallel_gateway_1', [7]),
+    ('parallel_gateway_1', 'prepare wedges', [7]),
+    ('parallel_gateway_1', 'prepare fries', [7]),
+    ('prepare wedges', 'prepare burger', [8]),
+    ('prepare fries', 'prepare burger', [8]),
+    ('prepare drink', 'prepare burger', [8]),
+    ('prepare burger', 'give status updates', [8]),
+    ('give status updates', 'deliver order using convey or belt', [9])
+]
+
+sentence_gold_standard =[5,6,7]

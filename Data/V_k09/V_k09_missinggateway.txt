@@ -1,0 +1,23 @@
+text_description = """
+The process begins by reading an order from the automatic order management system. Then, it checks if the product is in stock. If the product is not in stock, it reorders from the wholesaler. Then, it waits for the arrival of the product. Upon arrival, a delivery delay penalty is demanded from the wholesaler. The product is then registered in the stock management system. If the product is already in stock, it is withdrawn from the warehouse. Next, the system checks if the entire order is ready for shipment. If not, it re-performs from checking if the product is in stock. If the order is ready, a shipment process is created. Then the courier is requested and the products are packed at the same time. Finally, the order is shipped.
+"""
+gold_standard =[
+    ('Read order from the automatic order management system', 'Check if  product is in stock', [1,2]),
+    ('Check if  product is in stock', 'exclusive_gateway_1', [3,7]),
+    ('exclusive_gateway_1','Withdraw the Product from warehouse', [7]),
+    ('exclusive_gateway_1', 'Reorder from wholesaler', [3]),
+    ('Reorder from wholesaler', 'Waiting until arrives', [4]),
+    ('Waiting until arrives', 'Demand delivery delay penalty from the wholesaler', [5]),
+    ('Demand delivery delay penalty from the wholesaler', 'Register in stock management system', [6]),
+    ('Register in stock management system', 'Check if the whole order is ready for shipment', [8]),
+    ('Withdraw the Product from warehouse', 'Check if the whole order is ready for shipment', [8]),
+    ('Check if the whole order is ready for shipment', 'loop_1',[9,10]),
+    ('loop_1', 'Check if  product is in stock', [9]),
+    ('loop_1', 'Shipment process is created', [10]),
+    ('Shipment process is created', 'parallel_gateway_1', [11]),
+    ('parallel_gateway_1', 'Courier is requested', [11]),
+    ('parallel_gateway_1', 'Packing the products', [11]),
+    ('Courier is requested', 'Shipping the order', [12]),
+    ('Packing the products', 'Shipping the order', [12])
+]
+deviation_sentence_gold_standard =[5]

@@ -1,0 +1,25 @@
+text_description = """
+The process begins by reading an order from the automatic order management system. Then, it checks if the product is in stock. If the product is not in stock, it waits for the arrival of the product. Upon arrival, if the product takes more than ten days to arrive, a delivery delay penalty is demanded from the wholesaler. If not, these tasks are skipped. If the product is already in stock, it is withdrawn from the warehouse. Next, the system checks if the entire order is ready for shipment. If not, it re-performs from checking if the product is in stock. If the order is ready, a shipment process is created. Then the courier is requested and the products are packed at the same time. Finally, the order is shipped.
+"""
+
+gold_standard =[
+    ('Read order from the automatic order management system', 'Check if  product is in stock', [1,2]),
+    ('Check if  product is in stock', 'exclusive_gateway_1', [3,6]),
+    ('exclusive_gateway_1','Withdraw the Product from warehouse', [6]),
+    ('exclusive_gateway_1', 'Waiting until arrives', [3]),
+    ('Waiting until arrives', 'exclusive_gateway_2', [4,5]),
+    ('exclusive_gateway_2', 'Demand delivery delay penalty from the wholesaler', [4]),
+    ('Demand delivery delay penalty from the wholesaler', 'Check if the whole order is ready for shipment', [7]),
+    ('exclusive_gateway_2', 'Check if the whole order is ready for shipment', [5]),
+    ('Withdraw the Product from warehouse', 'Check if the whole order is ready for shipment', [7]),
+    ('Check if the whole order is ready for shipment', 'loop_1',[8,9]),
+    ('loop_1', 'Check if  product is in stock', [8]),
+    ('loop_1', 'Shipment process is created', [9]),
+    ('Shipment process is created', 'parallel_gateway_1', [10]),
+    ('parallel_gateway_1', 'Courier is requested', [10]),
+    ('parallel_gateway_1', 'Packing the products', [10]),
+    ('Courier is requested', 'Shipping the order', [11]),
+    ('Packing the products', 'Shipping the order', [11])
+]
+
+sentence_gold_standard =[3,4,5]
